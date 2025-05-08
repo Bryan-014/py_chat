@@ -11,14 +11,15 @@ def start_server(host: str, port: int):
     while True:
         data, addr = server.recvfrom(1024)
         print(f"[CLIENTE] {addr}: {data.decode()}")
-        if data.decode() == 'conect':
+        
+        if addr not in clients:
             clients.add(addr)
-        else:
-            for client in clients:
-                if client != addr:
-                    server.sendto(data, client)
-                else:
-                    server.sendto("Mensagem Enviada".encode(), addr)
+        
+        for client in clients:
+            if client != addr:
+                server.sendto(data.encode(), (host, 8800))
+            else:
+                server.sendto("Mensagem Enviada".encode(), addr)
 
 if __name__ == '__main__':
     HOST = "localhost"
