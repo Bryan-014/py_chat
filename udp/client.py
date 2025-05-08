@@ -4,8 +4,6 @@ def send_message(host: str, port: int):
     server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server.settimeout(1)
     
-    server.sendto('conect'.encode(), (host, port))
-    
     while True:        
         message = input('type your message: ')                    
         server.sendto(message.encode(), (host, port))
