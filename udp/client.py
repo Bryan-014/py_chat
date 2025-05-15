@@ -14,6 +14,8 @@ def send_message(host: str, port: int):
     client.bind(('', 0))
     client.settimeout(1)
 
+    client.sendto('Mensagem de Conexão'.encode(), (host, port))
+
     listener = threading.Thread(target=receive_messages, args=(client,), daemon=True)
     listener.start()
 
